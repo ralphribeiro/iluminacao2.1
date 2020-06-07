@@ -16,7 +16,7 @@ unsigned short int pinMosfet5 = 3;
 unsigned short int RELE = 0;
 unsigned short int MOSFET = 1;
 
-unsigned short int nivelMin = 0;
+unsigned short int nivelMin = 10;
 unsigned short int nivelMax = 240;
 
 Led ledFundos(pinRele1, RELE, HIGH, LOW);
@@ -149,9 +149,10 @@ void gerenciaEventoIR()
 			break;
 
 		case 11:
-			if (!ledSalaUm.aceso())
-				ledSalaUm.apaga();
-				ledSalaUm.nivelMin();
+			if (!ledSalaTres.aceso())
+				ledSalaTres.apaga();
+
+			ledSalaTres.nivelMinimo();
 			break;
 
 		default:

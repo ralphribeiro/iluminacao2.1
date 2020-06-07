@@ -23,15 +23,18 @@ Led::Led(unsigned short int pino, unsigned short int tipo, unsigned short int ni
 
 void Led::acende()
 {   
-
     _nivel = _nivelMax;
-    _escrevePorta(_nivelMax);
+    _escrevePorta(_nivel);
 }
 
 void Led::apaga()
-{
-    _nivel = 0;
-    _escrevePorta(0);
+{   
+    if (_tipo == RELE)
+        _nivel = HIGH;
+    else
+        _nivel = 0;
+        
+    _escrevePorta(_nivel);
 }
 
 void Led::incrementaNivel()
@@ -71,7 +74,7 @@ bool Led::aceso()
     return false;
 }
 
-void Led::nivelMin(){
+void Led::nivelMinimo(){
     _nivel = _nivelMin;
     _escrevePorta(_nivel);
 }

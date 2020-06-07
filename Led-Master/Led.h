@@ -16,7 +16,7 @@ public:
     void incrementaNivel();
     void decrementaNivel();
     bool aceso();
-    void nivelMin();
+    void nivelMinimo();
 
 private:
     void _escrevePorta(unsigned short int valor);    
