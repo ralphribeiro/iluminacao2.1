@@ -35,7 +35,7 @@ void setup()
 	iniciaFonte();
 	iniciaIR();
 	iniciaBotao();
-	// Serial.begin(9600);
+	// inciaSerial();
 }
 
 void loop()
@@ -52,18 +52,24 @@ void loop()
 		manipulaFonte();
 	}
 
+	//gerenciaSerial();
+}
+
+void gerenciaSerial()
+{
 	String msg = verificaMensagemSerial();
-	
+
 	if (msg.compareTo("") > 0)
 	{
-		if (msg == "#LS"){
+		if (msg == "#LS")
+		{
 			if (!ledFundos.aceso())
 				ledFundos.acende();
 			else
 				ledFundos.apaga();
-			break;
-		}	
-    
+		}
+
+		manipulaFonte();
 	}
 }
 
@@ -143,10 +149,9 @@ void gerenciaEventoIR()
 			break;
 
 		case 11:
-			if (!ledCortesia.aceso())
-				ledCortesia.acende();
-			else
-				ledCortesia.apaga();
+			if (!ledSalaUm.aceso())
+				ledSalaUm.apaga();
+				ledSalaUm.nivelMin();
 			break;
 
 		default:
@@ -193,5 +198,6 @@ bool algumLedAceso()
 	{
 		return true;
 	}
+
 	return false;
 }
