@@ -1,12 +1,12 @@
 #include <Led.h>
 
-unsigned short int pinBotao1  = 12;
-unsigned short int pinPSON    = 13;
-unsigned short int pinIR 	  = 4;
-unsigned short int pinRele1   = A0;
-unsigned short int pinRele2   = A1;
-unsigned short int pinRele3   = A2;
-unsigned short int pinRele4   = A3;
+unsigned short int pinBotao1 = 12;
+unsigned short int pinPSON = 13;
+unsigned short int pinIR = 4;
+unsigned short int pinRele1 = A0;
+unsigned short int pinRele2 = A1;
+unsigned short int pinRele3 = A2;
+unsigned short int pinRele4 = A3;
 unsigned short int pinMosfet1 = 10;
 unsigned short int pinMosfet2 = 9;
 unsigned short int pinMosfet3 = 6;
@@ -136,6 +136,13 @@ void gerenciaEventoIR()
 			break;
 
 		case 10:
+			if (!ledCortesia.aceso())
+				ledCortesia.acende();
+			else
+				ledCortesia.apaga();
+			break;
+
+		case 11:
 			if (!ledCortesia.aceso())
 				ledCortesia.acende();
 			else
