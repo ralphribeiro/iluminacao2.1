@@ -56,8 +56,12 @@ void loop()
 	
 	if (msg.compareTo("") > 0)
 	{
-		if (msg == "#VA"){
-			
+		if (msg == "#LS"){
+			if (!ledFundos.aceso())
+				ledFundos.acende();
+			else
+				ledFundos.apaga();
+			break;
 		}	
     
 	}
