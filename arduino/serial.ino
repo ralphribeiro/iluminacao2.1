@@ -1,29 +1,41 @@
 bool mensagemPronta = false;
 String mensagem = "";
 
-void iniciaSerial(){
-    Serial.begin(74880); 
+void iniciaSerial()
+{
+    Serial.begin(74880);
 }
 
-void processaSerial(){
+String verificaMensagemSerial()
+{
+    String retorno = "";
     eventoSerial();
 
-    if(mensagemPronta){
+    if (mensagemPronta)
+    {
+        retorno = mensagem;
 
-        if(mensagem == "#VA"){
-            String msgEnvio = "";
-            //msgEnvio = (String)volts + "," + (String)amperes;
-            Serial.println(msgEnvio);
-        }
         limpaMensagem();
     }
+
+    return retorno;
 }
 
-void eventoSerial(){    
-    while(Serial.available()){
-    char entrada = (char)Serial.read();
+void enviaMensagemSerial(String msg)
+{
+    // String msgEnvio = "";
+    // msgEnvio = (String)volts + "," + (String)amperes;
+    Serial.println(msg);
+}
 
-        if(entrada == '\n'){
+void eventoSerial()
+{
+    while (Serial.available())
+    {
+        char entrada = (char)Serial.read();
+
+        if (entrada == '\n')
+        {
             mensagemPronta = true;
             mensagem = mensagem.substring(0, mensagem.length() - 1);
         }
@@ -32,7 +44,8 @@ void eventoSerial(){
     }
 }
 
-void limpaMensagem(){
+void limpaMensagem()
+{
     mensagemPronta = false;
     mensagem = "";
 }

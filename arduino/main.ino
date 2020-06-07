@@ -51,6 +51,16 @@ void loop()
 
 		manipulaFonte();
 	}
+
+	String msg = verificaMensagemSerial();
+	
+	if (msg.compareTo("") > 0)
+	{
+		if (msg == "#VA"){
+			
+		}	
+    
+	}
 }
 
 void gerenciaEventoIR()
