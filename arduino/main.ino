@@ -19,6 +19,10 @@ unsigned short int MOSFET = 1;
 unsigned short int nivelMin = 10;
 unsigned short int nivelMax = 240;
 
+unsigned long ultimoEventoFade = 0;
+unsigned int intervaloEventoFade = 30;
+unsigned short int degrauFade = 5;
+
 Led ledFundos(pinRele1, RELE, HIGH, LOW);
 Led ledCorredoFundos(pinRele2, RELE, HIGH, LOW);
 Led ledCozinha(pinRele3, RELE, HIGH, LOW);
@@ -35,7 +39,7 @@ void setup()
 	iniciaFonte();
 	iniciaIR();
 	iniciaBotao();
-	inciaSerial();
+	iniciaSerial();
 }
 
 void loop()
@@ -53,6 +57,17 @@ void loop()
 	}
 
 	gerenciaSerial();
+
+	gerenciaFade();
+}
+
+void gerenciaFade()
+{
+	ledSalaUm.processaFade();
+	ledSalaDois.processaFade();
+	ledSalaTres.processaFade();
+	ledSalaQuatro.processaFade();
+	ledBico.processaFade();
 }
 
 void gerenciaSerial()
@@ -154,6 +169,15 @@ void gerenciaEventoIR()
 
 			ledSalaTres.nivelMinimo();
 			break;
+		
+		case 16:
+			if (!ledSalaQuatro.fade())
+			{
+				if (ledSalaQuatro.aceso())
+					ledSalaQuatro.ativaFade(HIGH, 5, 30);
+				else
+					ledSalaQuatro.ativaFade(LOW, 5, 30);
+			}
 
 		default:
 			break;
