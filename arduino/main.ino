@@ -35,7 +35,7 @@ void setup()
 	iniciaFonte();
 	iniciaIR();
 	iniciaBotao();
-	// inciaSerial();
+	inciaSerial();
 }
 
 void loop()
@@ -52,7 +52,7 @@ void loop()
 		manipulaFonte();
 	}
 
-	//gerenciaSerial();
+	gerenciaSerial();
 }
 
 void gerenciaSerial()

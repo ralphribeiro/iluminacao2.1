@@ -13,47 +13,56 @@ String comandoSerial = "";
 
 SoftwareSerial nano(RX1, TX1);
 
-void iniciaSerial(){
-	Serial.begin(115200);
+void iniciaSerial()
+{
+    Serial.begin(115200);
     nano.begin(74880);
 }
 
-void processaSerial(){
-	processaEnvio();
-	processaRecebimento();
+void processaSerial()
+{
+    processaEnvio();
+    processaRecebimento();
 }
 
-void processaRecebimento(){
+void processaRecebimento()
+{
     eventoSerial();
 
-    if(mensagemPronta){
+    if (mensagemPronta)
+    {
         Serial.print(mensagem);
         limpaMensagem();
-    }  
+    }
 }
 
-void processaEnvio(){
-	long millisAgora = millis();
+void processaEnvio()
+{
+    long millisAgora = millis();
 
-    if ((millisAgora - ultimoEventoSerial) > intervaloSerial){
+    if ((millisAgora - ultimoEventoSerial) > intervaloSerial)
+    {
 
-		nano.println("#VA");
-        
+        nano.println("#VA");
+
         ultimoEventoSerial = millisAgora;
     }
 }
 
-void eventoSerial(){    
-    while(nano.available()){
-    char entrada = (char)nano.read();
-        if(entrada == '\n')
+void eventoSerial()
+{
+    while (nano.available())
+    {
+        char entrada = (char)nano.read();
+        if (entrada == '\n')
             mensagemPronta = true;
         else
             mensagem += entrada;
-    }    
+    }
 }
 
-void limpaMensagem(){
+void limpaMensagem()
+{
     mensagemPronta = false;
     mensagem = "";
 }
