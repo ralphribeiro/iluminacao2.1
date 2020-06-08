@@ -19,7 +19,6 @@ unsigned short int MOSFET = 1;
 unsigned short int nivelMin = 10;
 unsigned short int nivelMax = 240;
 
-unsigned long ultimoEventoFade = 0;
 unsigned int intervaloEventoFade = 30;
 unsigned short int degrauFade = 5;
 
@@ -174,9 +173,9 @@ void gerenciaEventoIR()
 			if (!ledSalaQuatro.fade())
 			{
 				if (ledSalaQuatro.aceso())
-					ledSalaQuatro.ativaFade(HIGH, 5, 30);
+					ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
 				else
-					ledSalaQuatro.ativaFade(LOW, 5, 30);
+					ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
 			}
 
 		default:
