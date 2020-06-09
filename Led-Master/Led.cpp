@@ -58,8 +58,10 @@ void Led::ativaFade(bool sentido, unsigned short int degrau, unsigned int interv
     _intervaloFade = intervalo;
 }
 
-void Led::processaFade()
+bool Led::processaFade()
 {
+    bool retorno = false;
+
     if (_fade)
     {
         unsigned long agoraMillis = millis();
@@ -71,9 +73,13 @@ void Led::processaFade()
             else
                 decrementaNivel(_degrauFade);
 
+            retorno = true;            
+
             _ultimoEventoFade = agoraMillis;
         }
     }
+
+    return retorno;
 }
 
 void Led::incrementaNivel(unsigned short int degrau)

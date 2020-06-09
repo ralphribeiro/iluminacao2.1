@@ -53,7 +53,7 @@ void loop()
 		else
 			ledCortesia.apaga();
 
-		manipulaFonte();
+		gerenciaFonte();
 	}
 
 	gerenciaSerial();
@@ -63,11 +63,14 @@ void loop()
 
 void gerenciaFade()
 {
-	ledSalaUm.processaFade();
-	ledSalaDois.processaFade();
-	ledSalaTres.processaFade();
-	ledSalaQuatro.processaFade();
-	ledBico.processaFade();
+	if (ledSalaUm.processaFade() ||
+		ledSalaDois.processaFade() ||
+		ledSalaTres.processaFade() ||
+		ledSalaQuatro.processaFade() ||
+		ledBico.processaFade())
+	{
+		gerenciaFonte();
+	}
 }
 
 void gerenciaSerial()
@@ -84,7 +87,7 @@ void gerenciaSerial()
 				ledFundos.apaga();
 		}
 
-		manipulaFonte();
+		gerenciaFonte();
 	}
 }
 
@@ -186,7 +189,7 @@ void gerenciaEventoIR()
 			break;
 		}
 
-		manipulaFonte();
+		gerenciaFonte();
 	}
 }
 
@@ -201,10 +204,10 @@ void desliga()
 	ledSalaTres.apaga();
 	ledSalaQuatro.apaga();
 	ledBico.apaga();
-	manipulaFonte();
+	gerenciaFonte();
 }
 
-void manipulaFonte()
+void gerenciaFonte()
 {
 	if (algumLedAceso())
 		ligaFonte();

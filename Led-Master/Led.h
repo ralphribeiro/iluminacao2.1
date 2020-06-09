@@ -20,7 +20,7 @@ public:
     short int obtemNivel();
     bool fade();
     void ativaFade(bool sentido, unsigned short int degrau, unsigned int intervalo);
-    void processaFade();
+    bool processaFade();
 
 private:
     void _escrevePorta(unsigned short int valor);    
