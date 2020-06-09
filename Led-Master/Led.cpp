@@ -78,8 +78,11 @@ void Led::processaFade()
 
 void Led::incrementaNivel(unsigned short int degrau)
 {
-    if (_nivel > _nivelMax - degrau)
-        acende();
+    if (_nivel >= _nivelMax - degrau)
+    {
+        _nivel = _nivelMax;
+        _resetaFade();
+    }
 
     if (_nivel < _nivelMax)
         _nivel += degrau;
@@ -89,8 +92,11 @@ void Led::incrementaNivel(unsigned short int degrau)
 
 void Led::decrementaNivel(unsigned short int degrau)
 {
-    if (_nivel < degrau)
-        apaga();
+    if (_nivel <= degrau)
+    {
+        _nivel = 0;
+        _resetaFade();
+    }
 
     if (_nivel > degrau)
         _nivel -= degrau;

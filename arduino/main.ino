@@ -39,6 +39,7 @@ void setup()
 	iniciaIR();
 	iniciaBotao();
 	iniciaSerial();
+	Serial.begin(9600);
 }
 
 void loop()
@@ -172,11 +173,14 @@ void gerenciaEventoIR()
 		case 16:
 			if (!ledSalaQuatro.fade())
 			{
-				if (ledSalaQuatro.aceso())
+				if (!ledSalaQuatro.aceso())
 					ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
 				else
 					ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
+
+				ledSalaQuatro.processaFade();
 			}
+			break;
 
 		default:
 			break;
