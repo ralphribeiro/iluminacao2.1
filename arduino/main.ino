@@ -170,10 +170,16 @@ void gerenciaEventoIR()
 			break;
 
 		case 11:
-			if (!ledSalaTres.aceso())
-				ledSalaTres.apaga();
+			if (ledSalaTres.aceso())
+			{
+				if (ledSalaTres.obtemNivel() != nivelMin)
+					ledSalaTres.nivelMinimo();
+				else
+					ledSalaTres.apaga();
+			}
+			else
+				ledSalaTres.nivelMinimo();
 
-			ledSalaTres.nivelMinimo();
 			break;
 		
 		case 16:
