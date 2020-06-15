@@ -31,7 +31,7 @@ Led ledSalaUm(pinMosfet1, MOSFET, nivelMin, nivelMax);
 Led ledSalaDois(pinMosfet2, MOSFET, nivelMin, nivelMax);
 Led ledSalaTres(pinMosfet3, MOSFET, nivelMin, nivelMax);
 Led ledSalaQuatro(pinMosfet4, MOSFET, nivelMin, nivelMax);
-// Led ledBico(pinMosfet5, MOSFET, nivelMin, nivelMax);
+Led ledBico(pinMosfet5, MOSFET, nivelMin, nivelMax);
 
 void setup()
 {
@@ -40,7 +40,6 @@ void setup()
 	iniciaBotao();
 	iniciaSerial();
 	// Serial.begin(9600);
-	// pinMode(pinMosfet5, OUTPUT);
 }
 
 void loop()
@@ -67,8 +66,8 @@ void gerenciaFade()
 	if (ledSalaUm.processaFade() ||
 		ledSalaDois.processaFade() ||
 		ledSalaTres.processaFade() ||
-		ledSalaQuatro.processaFade()) //||
-		// ledBico.processaFade())
+		ledSalaQuatro.processaFade() ||
+		ledBico.processaFade())
 	{
 		gerenciaFonte();
 	}
@@ -154,11 +153,11 @@ void gerenciaEventoIR()
 			break;
 
 		case 9:
-			// if (!ledBico.aceso())
-			// 	ledBico.acende();
-			// else
-			// 	ledBico.apaga();
-			// digitalWrite(pinMosfet5, !digitalRead(pinMosfet5));
+			if (!ledBico.aceso())
+				ledBico.acende();
+			else
+				ledBico.apaga();
+			digitalWrite(pinMosfet5, !digitalRead(pinMosfet5));
 
 			break;
 
@@ -212,7 +211,7 @@ void desliga()
 	ledSalaDois.apaga();
 	ledSalaTres.apaga();
 	ledSalaQuatro.apaga();
-	// ledBico.apaga();
+	ledBico.apaga();
 	gerenciaFonte();
 }
 
@@ -233,8 +232,8 @@ bool algumLedAceso()
 		ledSalaUm.aceso() ||
 		ledSalaDois.aceso() ||
 		ledSalaTres.aceso() ||
-		ledSalaQuatro.aceso()) // ||
-		// ledBico.aceso())
+		ledSalaQuatro.aceso()) ||
+		ledBico.aceso())
 	{
 		return true;
 	}
