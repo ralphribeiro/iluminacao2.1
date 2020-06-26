@@ -157,7 +157,7 @@ void gerenciaEventoIR()
 				ledBico.acende();
 			else
 				ledBico.apaga();
-			digitalWrite(pinMosfet5, !digitalRead(pinMosfet5));
+			// digitalWrite(pinMosfet5, !digitalRead(pinMosfet5));
 
 			break;
 
