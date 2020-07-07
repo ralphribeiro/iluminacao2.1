@@ -91,7 +91,12 @@ void Led::incrementaNivel(unsigned short int degrau)
     }
 
     if (_nivel < _nivelMax)
-        _nivel += degrau;
+    {
+        if (!aceso())
+            _nivel = _nivelMin;
+        else
+            _nivel += degrau;
+    }
 
     _escrevePorta(_nivel);
 }
