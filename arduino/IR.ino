@@ -122,7 +122,7 @@ unsigned int irComando()
             retorno = 8;
             break;
 
-        case IrTv:
+        case Ir9:
             retorno = 9;
             break;
 

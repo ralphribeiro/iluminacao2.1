@@ -19,8 +19,9 @@ public:
     void nivelMinimo();
     short int obtemNivel();
     bool fade();
-    void ativaFade(bool sentido, unsigned short int degrau, unsigned int intervalo);
-    bool processaFade();
+    void ativaFade(bool sentido, unsigned short int degrau, unsigned int intervalo);    
+    void ativaTemporizador(unsigned int tempo);
+    bool processa();
 
 private:
     void _escrevePorta(unsigned short int valor);    
@@ -35,6 +36,10 @@ private:
     unsigned int _intervaloFade;
     unsigned short int _degrauFade;
     void _resetaFade();
+    bool _processaFade();
+    bool _processaTemporizador();
+    unsigned int _temporizador;
+    unsigned long _ultimoEventoTemporizador;
 };
 
 #endif

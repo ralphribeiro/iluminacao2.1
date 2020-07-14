@@ -36,7 +36,8 @@ void Led::apaga()
         _nivel = 0;
         _resetaFade();
     }
-        
+    
+    _temporizador = 0;
     _escrevePorta(_nivel);
 }
 
@@ -58,7 +59,7 @@ void Led::ativaFade(bool sentido, unsigned short int degrau, unsigned int interv
     _intervaloFade = intervalo;
 }
 
-bool Led::processaFade()
+bool Led::_processaFade()
 {
     bool retorno = false;
 
@@ -80,6 +81,40 @@ bool Led::processaFade()
     }
 
     return retorno;
+}
+
+void Led::ativaTemporizador(unsigned int tempo)
+{
+    _ultimoEventoTemporizador = millis();
+    _temporizador = tempo;
+    if (!aceso())
+        acende();
+}
+
+bool Led::_processaTemporizador()
+{    
+    bool retorno = false;
+
+    if (_temporizador > 0)
+    {
+        unsigned long agoraMillis = millis();
+
+        if ((agoraMillis - _ultimoEventoTemporizador) > _temporizador)
+        {
+            apaga();
+            retorno = true;
+        }
+    }
+
+    return retorno;
+}
+
+bool Led::processa()
+{
+    if (_processaFade() || _processaTemporizador())
+        return true;
+    else
+        return false;
 }
 
 void Led::incrementaNivel(unsigned short int degrau)
