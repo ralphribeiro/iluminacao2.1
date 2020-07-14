@@ -85,7 +85,7 @@ bool Led::_processaFade()
 
 void Led::ativaTemporizador(unsigned int tempo)
 {
-    _ultimoEventoTemporizador = millis();
+    _inicioTemporizador = millis();
     _temporizador = tempo;
     if (!aceso())
         acende();
@@ -99,7 +99,7 @@ bool Led::_processaTemporizador()
     {
         unsigned long agoraMillis = millis();
 
-        if ((agoraMillis - _ultimoEventoTemporizador) > _temporizador)
+        if ((agoraMillis - _inicioTemporizador) > _temporizador)
         {
             apaga();
             retorno = true;

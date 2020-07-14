@@ -38,7 +38,7 @@ void setup()
 	iniciaFonte();
 	iniciaIR();
 	iniciaBotao();
-	iniciaSerial();
+	// iniciaSerial();
 	// Serial.begin(9600);
 }
 
@@ -56,7 +56,7 @@ void loop()
 		gerenciaFonte();
 	}
 
-	gerenciaSerial();
+	// gerenciaSerial();
 
 	gerenciaFade();
 }
@@ -87,10 +87,7 @@ void gerenciaSerial()
 		}
 
 		gerenciaFonte();
-	}if (!ledBico.aceso())
-				ledBico.acende();
-			else
-				ledBico.apaga();
+	}
 }
 
 void gerenciaEventoIR()
@@ -155,10 +152,12 @@ void gerenciaEventoIR()
 			break;
 
 		case 9:
-			if (!ledBico.aceso())
-				ledBico.acende();
-			else
-				ledBico.apaga();
+			// if (!ledBico.aceso())
+			// 	ledBico.acende();
+			// else
+			// 	ledBico.apaga();
+			
+
 			break;
 
 		case 10:
@@ -217,7 +216,12 @@ void desliga()
 
 void gerenciaFonte()
 {
-	if (algumLedAceso())
+	// Serial.print("led aceso: ");
+	// Serial.println(algumLedAceso());
+	// Serial.print("fonte: ");
+	// Serial.println(fonteLigada());
+
+	if (algumLedAceso() && !fonteLigada())
 		ligaFonte();
 	else
 		desligaFonte();

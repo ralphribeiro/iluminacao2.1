@@ -39,7 +39,7 @@ private:
     bool _processaFade();
     bool _processaTemporizador();
     unsigned int _temporizador;
-    unsigned long _ultimoEventoTemporizador;
+    unsigned long _inicioTemporizador;
 };
 
 #endif
