@@ -58,10 +58,10 @@ void loop()
 
 	// gerenciaSerial();
 
-	gerenciaFade();
+	gerenciaLed();
 }
 
-void gerenciaFade()
+void gerenciaLed()
 {
 	if (ledSalaUm.processa() ||
 		ledSalaDois.processa() ||
@@ -152,12 +152,11 @@ void gerenciaEventoIR()
 			break;
 
 		case 9:
-			// if (!ledBico.aceso())
-			// 	ledBico.acende();
-			// else
-			// 	ledBico.apaga();
+			if (!ledBico.aceso())
+				ledBico.acende();
+			else
+				ledBico.apaga();
 			
-
 			break;
 
 		case 10:
@@ -221,7 +220,10 @@ void gerenciaFonte()
 	// Serial.print("fonte: ");
 	// Serial.println(fonteLigada());
 
-	if (algumLedAceso() && !fonteLigada())
+	bool al = algumLedAceso();
+	// bool fl = fonteLigada();
+
+	if (al)
 		ligaFonte();
 	else
 		desligaFonte();

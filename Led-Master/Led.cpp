@@ -16,6 +16,8 @@ Led::Led(unsigned short int pino, unsigned short int tipo, unsigned short int ni
     _tipo = tipo;
     _nivelMin = nivelMin;
     _nivelMax = nivelMax;
+    _temporizador = 0;
+    _inicioTemporizador = 0;
 
     apaga();
 }
@@ -30,7 +32,7 @@ void Led::acende()
 void Led::apaga()
 {   
     if (_tipo == RELE)
-        _nivel = HIGH;
+        _nivel = _nivelMin;
     else
     {
         _nivel = 0;
@@ -111,7 +113,10 @@ bool Led::_processaTemporizador()
 
 bool Led::processa()
 {
-    if (_processaFade() || _processaTemporizador())
+    bool pf = _processaFade();
+    bool pt = _processaTemporizador();
+
+    if (pf || pt)
         return true;
     else
         return false;
