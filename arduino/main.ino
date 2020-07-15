@@ -46,19 +46,42 @@ void loop()
 {
 	gerenciaEventoIR();
 
-	if (apertouBotao())
-	{
-		if (!ledCortesia.aceso())
-			ledCortesia.acende();
-		else
-			ledCortesia.apaga();
-
-		gerenciaFonte();
-	}
+	gerenciaBotao();
 
 	// gerenciaSerial();
 
 	gerenciaLed();
+}
+
+void gerenciaBotao()
+{
+	unsigned short int retorno = processaBotao();
+
+	if (retorno > 0)
+	{
+		switch (retorno)
+		{
+		case 1:
+			if (!ledCortesia.aceso())
+				ledCortesia.acende();
+			else
+				ledCortesia.apaga();
+			break;
+		case 2:
+			if (!ledBico.aceso())
+				ledBico.acende();
+			else
+				ledBico.apaga();
+			break;
+
+		default:
+			break;
+		}
+
+		gerenciaFonte();
+	}
+
+
 }
 
 void gerenciaLed()
