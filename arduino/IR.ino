@@ -154,6 +154,10 @@ unsigned int irComando()
             retorno = 16;
             break;
 
+        case IrMute:
+            retorno = 17;
+            break;
+
         default:
             break;
         }

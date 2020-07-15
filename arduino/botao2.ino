@@ -9,7 +9,7 @@ extern unsigned short int pinBotao1;
 
 unsigned short int ultimoEstadoBotao = HIGH;
 unsigned long ultimoEvento = 0;
-unsigned int intervaloEvento = 50;
+unsigned int intervaloEvento = 25;
 unsigned int tempoEsperaEvento = 400;
 bool estadoBotao = HIGH;
 byte contadorToque;
@@ -83,4 +83,6 @@ unsigned short int processaBotao()
 		contadorToque = 0;
 	}
 	ultimoEstadoBotao = valorLido;
+
+	return retorno;
 }

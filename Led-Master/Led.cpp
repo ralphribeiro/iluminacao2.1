@@ -16,7 +16,6 @@ Led::Led(unsigned short int pino, unsigned short int tipo, unsigned short int ni
     _tipo = tipo;
     _nivelMin = nivelMin;
     _nivelMax = nivelMax;
-    _temporizador = 0;
     _inicioTemporizador = 0;
 
     apaga();
@@ -85,7 +84,7 @@ bool Led::_processaFade()
     return retorno;
 }
 
-void Led::ativaTemporizador(unsigned int tempo)
+void Led::ativaTemporizador(unsigned long tempo)
 {
     _inicioTemporizador = millis();
     _temporizador = tempo;

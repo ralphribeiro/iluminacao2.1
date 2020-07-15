@@ -67,11 +67,16 @@ void gerenciaBotao()
 			else
 				ledCortesia.apaga();
 			break;
+		
 		case 2:
 			if (!ledBico.aceso())
 				ledBico.acende();
 			else
 				ledBico.apaga();
+			break;
+		
+		case 3:
+			ledBico.ativaTemporizador(120000);
 			break;
 
 		default:
@@ -89,7 +94,8 @@ void gerenciaLed()
 	if (ledSalaUm.processa() ||
 		ledSalaDois.processa() ||
 		ledSalaTres.processa() ||
-		ledSalaQuatro.processa())
+		ledSalaQuatro.processa() ||
+		ledBico.processa())
 	{
 		gerenciaFonte();
 	}
@@ -212,6 +218,10 @@ void gerenciaEventoIR()
 
 				ledSalaQuatro.processa();
 			}
+			break;
+		
+		case 17:
+			ledBico.ativaTemporizador(60000);
 			break;
 
 		default:

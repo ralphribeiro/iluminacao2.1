@@ -20,7 +20,7 @@ public:
     short int obtemNivel();
     bool fade();
     void ativaFade(bool sentido, unsigned short int degrau, unsigned int intervalo);    
-    void ativaTemporizador(unsigned int tempo);
+    void ativaTemporizador(unsigned long tempo);
     bool processa();
 
 private:
@@ -38,7 +38,7 @@ private:
     void _resetaFade();
     bool _processaFade();
     bool _processaTemporizador();
-    unsigned int _temporizador;
+    unsigned long _temporizador;
     unsigned long _inicioTemporizador;
 };
 
