@@ -1,46 +1,88 @@
-// extern unsigned short int pinBotao1;
+extern unsigned short int pinBotao1;
 
-// unsigned short int estadoBotao;
-// unsigned short int ultimoEstadoBotao = HIGH;
+#define UMTOQUE 1
+#define DOISTOQUES 2
+#define TRESTOQUES 3
+#define QUATROTOQUES 4
+#define BOTAOPRESO 5
+#define UMTOQUEEPRESO 6
 
-// unsigned long ultimoEvento = 0;
-// unsigned int intervaloEvento = 25;
+unsigned short int ultimoEstadoBotao = HIGH;
+unsigned long ultimoEvento = 0;
+unsigned int intervaloEvento = 25;
+unsigned int tempoEsperaEvento = 400;
+bool estadoBotao = HIGH;
+byte contadorToque;
+int tempoDelta;
+bool flag1, flag2;
+long double tempoPressionado, tempoSoltura;
 
-// bool botaoFlag = false;
 
-// void iniciaBotao()
-// {
-//     pinMode(pinBotao1, INPUT_PULLUP);
-// }
+void iniciaBotao()
+{
+	pinMode(pinBotao1, INPUT_PULLUP);
+}
 
-// bool apertouBotao()
-// {
-//     bool pressionou = false;
-//     int valorLido = digitalRead(pinBotao1);
+unsigned short int processaBotao()
+{
+	unsigned short int retorno = 0;
 
-//     if (valorLido != ultimoEstadoBotao)
-//         ultimoEvento = millis();
+	int valorLido = digitalRead(pinBotao1);
 
-//     if ((millis() - ultimoEvento) > intervaloEvento)
-//     {
-//         if (valorLido != estadoBotao)
-//         {
-//             estadoBotao = valorLido;
+	if (valorLido != ultimoEstadoBotao)
+		ultimoEvento = millis();
 
-//             if (estadoBotao == LOW)
-//             {
-//                 pressionou = true;
-//                 botaoFlag = !botaoFlag;
-//             }
-//         }
-//     }
+	if ((millis() - ultimoEvento) > intervaloEvento)
+	{
+		if (valorLido != estadoBotao)
+		{
+			estadoBotao = valorLido;
+		}
+	}
 
-//     ultimoEstadoBotao = valorLido;
+	//pressionado
+	if (estadoBotao == 0 && flag2 == 0)
+	{
+		tempoPressionado = millis();
+		flag1 = 0;
+		flag2 = 1;
+		contadorToque++;
+	}
 
-//     return pressionou;
-// }
+	//solto
+	if (estadoBotao == 1 && flag1 == 0)
+	{
+		tempoSoltura = millis();
+		flag1 = 1;
+		flag2 = 0;
 
-// bool flagAtivada()
-// {
-//     return botaoFlag;
-// }
+		tempoDelta = tempoSoltura - tempoPressionado;
+	}
+
+	if ((millis() - tempoPressionado) > tempoEsperaEvento && estadoBotao == 1)
+	{
+		if (contadorToque == 1)
+		{
+			if (tempoDelta >= tempoEsperaEvento)
+				retorno = BOTAOPRESO;
+			else
+				retorno = UMTOQUE;
+		}
+		else if (contadorToque == 2)
+		{
+			if (tempoDelta >= tempoEsperaEvento)
+				retorno = UMTOQUEEPRESO;
+			else
+				retorno = DOISTOQUES;
+		}
+		else if (contadorToque == 3)
+			retorno = TRESTOQUES;
+		else if (contadorToque == 4)
+			retorno = QUATROTOQUES;
+
+		contadorToque = 0;
+	}
+	ultimoEstadoBotao = valorLido;
+
+	return retorno;
+}
