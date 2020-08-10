@@ -58,6 +58,8 @@ void Led::ativaFade(bool sentido, unsigned short int degrau, unsigned int interv
     _sentidoFade = sentido;
     _degrauFade = degrau;
     _intervaloFade = intervalo;
+
+    processa();
 }
 
 bool Led::_processaFade()

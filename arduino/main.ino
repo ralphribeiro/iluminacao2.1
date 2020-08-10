@@ -207,16 +207,61 @@ void gerenciaEventoIR()
 				ledSalaTres.nivelMinimo();
 
 			break;
+
+		case 12:
+			if (ledSalaUm.obtemNivel() == nivelMin &&
+				ledSalaDois.obtemNivel() == nivelMin &&
+				ledSalaTres.obtemNivel() == nivelMin &&
+				ledSalaQuatro.obtemNivel() == nivelMin)
+			{
+				ledSalaUm.apaga();
+				ledSalaDois.apaga();
+				ledSalaTres.apaga();
+				ledSalaQuatro.apaga();
+			}
+			else
+			{
+				ledSalaUm.apaga();
+				ledSalaDois.apaga();
+				ledSalaTres.apaga();
+				ledSalaQuatro.apaga();
+
+				ledSalaUm.nivelMinimo();
+				ledSalaDois.nivelMinimo();
+				ledSalaTres.nivelMinimo();
+				ledSalaQuatro.nivelMinimo();
+			}
+
+			break;
 		
 		case 16:
-			if (!ledSalaQuatro.fade())
+			if (!ledSalaUm.fade() &&
+				!ledSalaDois.fade() &&
+				!ledSalaTres.fade() &&
+				!ledSalaQuatro.fade())
 			{
-				if (!ledSalaQuatro.aceso())
+				if (!ledSalaUm.aceso() &&
+					!ledSalaDois.aceso() &&
+					!ledSalaTres.aceso() &&
+					!ledSalaQuatro.aceso())
+				{
+					ledSalaUm.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+					ledSalaDois.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+					ledSalaTres.ativaFade(HIGH, degrauFade, intervaloEventoFade);
 					ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+				}
 				else
-					ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
+				{
+					ledSalaUm.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+					ledSalaDois.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+					ledSalaTres.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+					ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+				}
 
-				ledSalaQuatro.processa();
+				// ledSalaUm.processa();
+				// ledSalaDois.processa();
+				// ledSalaTres.processa();
+				// ledSalaQuatro.processa();
 			}
 			break;
 		
