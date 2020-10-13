@@ -252,10 +252,10 @@ void gerenciaEventoIR()
 				}
 				else
 				{
-					ledSalaUm.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-					ledSalaDois.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-					ledSalaTres.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-					ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+					ledSalaUm.ativaFade(LOW, degrauFade, intervaloEventoFade);
+					ledSalaDois.ativaFade(LOW, degrauFade, intervaloEventoFade);
+					ledSalaTres.ativaFade(LOW, degrauFade, intervaloEventoFade);
+					ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
 				}
 
 				// ledSalaUm.processa();
