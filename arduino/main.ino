@@ -53,6 +53,33 @@ void loop()
 	gerenciaLed();
 }
 
+void manipulaNivelMin()
+{
+    
+	if (ledSalaUm.obtemNivel() == nivelMin &&
+        ledSalaDois.obtemNivel() == nivelMin &&
+        ledSalaTres.obtemNivel() == nivelMin &&
+        ledSalaQuatro.obtemNivel() == nivelMin)
+    {
+        ledSalaUm.apaga();
+        ledSalaDois.apaga();
+        ledSalaTres.apaga();
+        ledSalaQuatro.apaga();
+    }
+    else
+    {
+        ledSalaUm.apaga();
+        ledSalaDois.apaga();
+        ledSalaTres.apaga();
+        ledSalaQuatro.apaga();
+
+        ledSalaUm.nivelMinimo();
+        ledSalaDois.nivelMinimo();
+        ledSalaTres.nivelMinimo();
+        ledSalaQuatro.nivelMinimo();
+    }
+}
+
 void gerenciaBotao()
 {
 	unsigned short int retorno = processaBotao();
@@ -78,6 +105,10 @@ void gerenciaBotao()
 		case 3:
 			ledBico.ativaTemporizador(120000);
 			break;
+                
+        case 5:
+            manipulaNivelMin();
+            break;
 
 		default:
 			break;
@@ -209,29 +240,7 @@ void gerenciaEventoIR()
 			break;
 
 		case 12:
-			if (ledSalaUm.obtemNivel() == nivelMin &&
-				ledSalaDois.obtemNivel() == nivelMin &&
-				ledSalaTres.obtemNivel() == nivelMin &&
-				ledSalaQuatro.obtemNivel() == nivelMin)
-			{
-				ledSalaUm.apaga();
-				ledSalaDois.apaga();
-				ledSalaTres.apaga();
-				ledSalaQuatro.apaga();
-			}
-			else
-			{
-				ledSalaUm.apaga();
-				ledSalaDois.apaga();
-				ledSalaTres.apaga();
-				ledSalaQuatro.apaga();
-
-				ledSalaUm.nivelMinimo();
-				ledSalaDois.nivelMinimo();
-				ledSalaTres.nivelMinimo();
-				ledSalaQuatro.nivelMinimo();
-			}
-
+			manipulaNivelMin();
 			break;
 		
 		case 16:
@@ -256,12 +265,7 @@ void gerenciaEventoIR()
 					ledSalaDois.ativaFade(LOW, degrauFade, intervaloEventoFade);
 					ledSalaTres.ativaFade(LOW, degrauFade, intervaloEventoFade);
 					ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
-				}
-
-				// ledSalaUm.processa();
-				// ledSalaDois.processa();
-				// ledSalaTres.processa();
-				// ledSalaQuatro.processa();
+				}				
 			}
 			break;
 		
@@ -293,11 +297,6 @@ void desliga()
 
 void gerenciaFonte()
 {
-	// Serial.print("led aceso: ");
-	// Serial.println(algumLedAceso());
-	// Serial.print("fonte: ");
-	// Serial.println(fonteLigada());
-
 	bool al = algumLedAceso();
 	// bool fl = fonteLigada();
 
