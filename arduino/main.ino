@@ -53,31 +53,101 @@ void loop()
 	gerenciaLed();
 }
 
+void desliga()
+{
+	ledFundos.apaga();
+	ledCorredoFundos.apaga();
+	ledCozinha.apaga();
+	ledCortesia.apaga();
+	ledSalaUm.apaga();
+	ledSalaDois.apaga();
+	ledSalaTres.apaga();
+	ledSalaQuatro.apaga();
+	ledBico.apaga();
+	gerenciaFonte();
+}
+
+void gerenciaFonte()
+{
+	bool al = algumLedAceso();
+	// bool fl = fonteLigada();
+
+	if (al)
+		ligaFonte();
+	else
+		desligaFonte();
+}
+
+bool algumLedAceso()
+{
+	if (ledFundos.aceso() ||
+		ledCorredoFundos.aceso() ||
+		ledCozinha.aceso() ||
+		ledCortesia.aceso() ||
+		ledSalaUm.aceso() ||
+		ledSalaDois.aceso() ||
+		ledSalaTres.aceso() ||
+		ledSalaQuatro.aceso() ||
+		ledBico.aceso())
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void manipulaNivelMin()
 {
-    
-	if (ledSalaUm.obtemNivel() == nivelMin &&
-        ledSalaDois.obtemNivel() == nivelMin &&
-        ledSalaTres.obtemNivel() == nivelMin &&
-        ledSalaQuatro.obtemNivel() == nivelMin)
-    {
-        ledSalaUm.apaga();
-        ledSalaDois.apaga();
-        ledSalaTres.apaga();
-        ledSalaQuatro.apaga();
-    }
-    else
-    {
-        ledSalaUm.apaga();
-        ledSalaDois.apaga();
-        ledSalaTres.apaga();
-        ledSalaQuatro.apaga();
 
-        ledSalaUm.nivelMinimo();
-        ledSalaDois.nivelMinimo();
-        ledSalaTres.nivelMinimo();
-        ledSalaQuatro.nivelMinimo();
-    }
+	if (ledSalaUm.obtemNivel() == nivelMin &&
+		ledSalaDois.obtemNivel() == nivelMin &&
+		ledSalaTres.obtemNivel() == nivelMin &&
+		ledSalaQuatro.obtemNivel() == nivelMin)
+	{
+		ledSalaUm.apaga();
+		ledSalaDois.apaga();
+		ledSalaTres.apaga();
+		ledSalaQuatro.apaga();
+	}
+	else
+	{
+		ledSalaUm.apaga();
+		ledSalaDois.apaga();
+		ledSalaTres.apaga();
+		ledSalaQuatro.apaga();
+
+		ledSalaUm.nivelMinimo();
+		ledSalaDois.nivelMinimo();
+		ledSalaTres.nivelMinimo();
+		ledSalaQuatro.nivelMinimo();
+	}
+}
+
+void manipulaFade()
+{
+	if (!ledSalaUm.fade() &&
+		!ledSalaDois.fade() &&
+		!ledSalaTres.fade() &&
+		!ledSalaQuatro.fade())
+		{
+			if (!ledSalaUm.aceso() &&
+				!ledSalaDois.aceso() &&
+				!ledSalaTres.aceso() &&
+				!ledSalaQuatro.aceso())
+			{
+				ledSalaUm.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+				ledSalaDois.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+				ledSalaTres.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+				ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+			}
+			else
+			{
+				ledSalaUm.ativaFade(LOW, degrauFade, intervaloEventoFade);
+				ledSalaDois.ativaFade(LOW, degrauFade, intervaloEventoFade);
+				ledSalaTres.ativaFade(LOW, degrauFade, intervaloEventoFade);
+				ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
+			}
+		}
 }
 
 void gerenciaBotao()
@@ -89,26 +159,20 @@ void gerenciaBotao()
 		switch (retorno)
 		{
 		case 1:
-			if (!ledCortesia.aceso())
-				ledCortesia.acende();
-			else
-				ledCortesia.apaga();
+			ledCortesia.aceso() ? ledCortesia.apaga() : ledCortesia.acende();
 			break;
-		
+
 		case 2:
-			if (!ledBico.aceso())
-				ledBico.acende();
-			else
-				ledBico.apaga();
+			ledBico.aceso() ? ledBico.apaga() : ledBico.acende();
 			break;
-		
+
 		case 3:
 			ledBico.ativaTemporizador(120000);
 			break;
-                
-        case 5:
-            manipulaNivelMin();
-            break;
+
+		case 5:
+			manipulaNivelMin();
+			break;
 
 		default:
 			break;
@@ -116,8 +180,6 @@ void gerenciaBotao()
 
 		gerenciaFonte();
 	}
-
-
 }
 
 void gerenciaLed()
@@ -163,77 +225,44 @@ void gerenciaEventoIR()
 			break;
 
 		case 2:
-			if (!ledFundos.aceso())
-				ledFundos.acende();
-			else
-				ledFundos.apaga();
+			ledFundos.aceso() ? ledFundos.apaga() : ledFundos.acende();
 			break;
 
 		case 3:
-			if (!ledCorredoFundos.aceso())
-				ledCorredoFundos.acende();
-			else
-				ledCorredoFundos.apaga();
+			ledCorredoFundos.aceso() ? ledCorredoFundos.apaga() : ledCorredoFundos.acende();
 			break;
 
 		case 4:
-			if (!ledCozinha.aceso())
-				ledCozinha.acende();
-			else
-				ledCozinha.apaga();
+			ledCozinha.aceso() ? ledCozinha.apaga() : ledCozinha.acende();
 			break;
 
 		case 5:
-			if (!ledSalaUm.aceso())
-				ledSalaUm.acende();
-			else
-				ledSalaUm.apaga();
+			ledSalaUm.aceso() ? ledSalaUm.apaga() : ledSalaUm.acende();
 			break;
 
 		case 6:
-			if (!ledSalaDois.aceso())
-				ledSalaDois.acende();
-			else
-				ledSalaDois.apaga();
+			ledSalaDois.aceso() ? ledSalaDois.apaga() : ledSalaDois.acende();
 			break;
 
 		case 7:
-			if (!ledSalaTres.aceso())
-				ledSalaTres.acende();
-			else
-				ledSalaTres.apaga();
+			ledSalaTres.aceso() ? ledSalaTres.apaga() : ledSalaTres.acende();
 			break;
 
 		case 8:
-			if (!ledSalaQuatro.aceso())
-				ledSalaQuatro.acende();
-			else
-				ledSalaQuatro.apaga();
+			ledSalaQuatro.aceso() ? ledSalaQuatro.apaga() : ledSalaQuatro.acende();
 			break;
 
 		case 9:
-			if (!ledBico.aceso())
-				ledBico.acende();
-			else
-				ledBico.apaga();
-			
+			ledBico.aceso() ? ledBico.apaga() : ledBico.acende();
 			break;
 
 		case 10:
-			if (!ledCortesia.aceso())
-				ledCortesia.acende();
-			else
-				ledCortesia.apaga();
+			ledCortesia.aceso() ? ledCortesia.apaga() : ledCortesia.acende();
 			break;
 
 		case 11:
 			if (ledSalaTres.aceso())
-			{
-				if (ledSalaTres.obtemNivel() != nivelMin)
-					ledSalaTres.nivelMinimo();
-				else
-					ledSalaTres.apaga();
-			}
+				ledSalaTres.obtemNivel() != nivelMin ? ledSalaTres.apaga() : ledSalaTres.nivelMinimo();
 			else
 				ledSalaTres.nivelMinimo();
 
@@ -242,33 +271,11 @@ void gerenciaEventoIR()
 		case 12:
 			manipulaNivelMin();
 			break;
-		
+
 		case 16:
-			if (!ledSalaUm.fade() &&
-				!ledSalaDois.fade() &&
-				!ledSalaTres.fade() &&
-				!ledSalaQuatro.fade())
-			{
-				if (!ledSalaUm.aceso() &&
-					!ledSalaDois.aceso() &&
-					!ledSalaTres.aceso() &&
-					!ledSalaQuatro.aceso())
-				{
-					ledSalaUm.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-					ledSalaDois.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-					ledSalaTres.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-					ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-				}
-				else
-				{
-					ledSalaUm.ativaFade(LOW, degrauFade, intervaloEventoFade);
-					ledSalaDois.ativaFade(LOW, degrauFade, intervaloEventoFade);
-					ledSalaTres.ativaFade(LOW, degrauFade, intervaloEventoFade);
-					ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
-				}				
-			}
+			manipulaFade();
 			break;
-		
+
 		case 17:
 			ledBico.ativaTemporizador(60000);
 			break;
@@ -279,47 +286,4 @@ void gerenciaEventoIR()
 
 		gerenciaFonte();
 	}
-}
-
-void desliga()
-{
-	ledFundos.apaga();
-	ledCorredoFundos.apaga();
-	ledCozinha.apaga();
-	ledCortesia.apaga();
-	ledSalaUm.apaga();
-	ledSalaDois.apaga();
-	ledSalaTres.apaga();
-	ledSalaQuatro.apaga();
-	ledBico.apaga();
-	gerenciaFonte();
-}
-
-void gerenciaFonte()
-{
-	bool al = algumLedAceso();
-	// bool fl = fonteLigada();
-
-	if (al)
-		ligaFonte();
-	else
-		desligaFonte();
-}
-
-bool algumLedAceso()
-{
-	if (ledFundos.aceso() ||
-		ledCorredoFundos.aceso() ||
-		ledCozinha.aceso() ||
-		ledCortesia.aceso() ||
-		ledSalaUm.aceso() ||
-		ledSalaDois.aceso() ||
-		ledSalaTres.aceso() ||
-		ledSalaQuatro.aceso() ||
-		ledBico.aceso())
-	{
-		return true;
-	}
-
-	return false;
 }

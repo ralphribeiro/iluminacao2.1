@@ -28,8 +28,5 @@ void desligaFonte()
 
 bool fonteLigada()
 {
-    if (PSONState == LOW)
-        return true;
-    else
-        return false;
+    return PSONState == LOW ? true : false;
 }

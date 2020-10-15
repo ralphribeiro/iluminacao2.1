@@ -29,16 +29,10 @@ unsigned short int processaBotao()
 
 	int valorLido = digitalRead(pinBotao1);
 
-	if (valorLido != ultimoEstadoBotao)
-		ultimoEvento = millis();
+	ultimoEvento = valorLido != ultimoEstadoBotao ? millis() : ultimoEvento;
 
 	if ((millis() - ultimoEvento) > intervaloEvento)
-	{
-		if (valorLido != estadoBotao)
-		{
-			estadoBotao = valorLido;
-		}
-	}
+		estadoBotao = valorLido != estadoBotao ? valorLido : estadoBotao;
 
 	//pressionado
 	if (estadoBotao == 0 && flag2 == 0)
@@ -62,19 +56,9 @@ unsigned short int processaBotao()
 	if ((millis() - tempoPressionado) > tempoEsperaEvento && estadoBotao == 1)
 	{
 		if (contadorToque == 1)
-		{
-			if (tempoDelta >= tempoEsperaEvento)
-				retorno = BOTAOPRESO;
-			else
-				retorno = UMTOQUE;
-		}
+			retorno = tempoDelta >= tempoEsperaEvento ? BOTAOPRESO : UMTOQUE;
 		else if (contadorToque == 2)
-		{
-			if (tempoDelta >= tempoEsperaEvento)
-				retorno = UMTOQUEEPRESO;
-			else
-				retorno = DOISTOQUES;
-		}
+			retorno = tempoDelta >= tempoEsperaEvento ? UMTOQUEEPRESO : DOISTOQUES;
 		else if (contadorToque == 3)
 			retorno = TRESTOQUES;
 		else if (contadorToque == 4)

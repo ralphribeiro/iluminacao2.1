@@ -66,9 +66,7 @@ long lerIR()
     {
         if (irrecv.decode(&resultados))
         {
-            if (resultados.decode_type == NEC)
-                valor = resultados.value;
-
+            valor = resultados.decode_type == NEC ? resultados.value : valor;
             irrecv.resume(); // Recebe o próximo valor
         }
         ultimaLeitura = agora;
