@@ -9,8 +9,10 @@
 #define RELE 0
 #define MOSFET 1
 
-Led::Led(unsigned short int pino, unsigned short int tipo, unsigned short int nivelMin, unsigned short int nivelMax)
-{
+Led::Led(unsigned short int pino,
+         unsigned short int tipo,
+         unsigned short int nivelMin,
+         unsigned short int nivelMax){
     pinMode(pino, OUTPUT);
     _pino = pino;
     _tipo = tipo;
@@ -21,19 +23,16 @@ Led::Led(unsigned short int pino, unsigned short int tipo, unsigned short int ni
     apaga();
 }
 
-void Led::acende()
-{   
+void Led::acende(){
     _nivel = _nivelMax;
     _resetaFade();
     _escrevePorta(_nivel);
 }
 
-void Led::apaga()
-{   
+void Led::apaga(){
     if (_tipo == RELE)
         _nivel = _nivelMin;
-    else
-    {
+    else{
         _nivel = 0;
         _resetaFade();
     }
@@ -42,97 +41,73 @@ void Led::apaga()
     _escrevePorta(_nivel);
 }
 
-short int Led::obtemNivel()
-{
+short int Led::obtemNivel(){
     return _nivel;
 }
 
-bool Led::fade()
-{
+bool Led::fade(){
     return _fade;
 }
 
-void Led::ativaFade(bool sentido, unsigned short int degrau, unsigned int intervalo)
-{
+void Led::ativaFade(bool sentido,
+                    unsigned short int degrau,
+                    unsigned int intervalo){
     _fade = true;
     _sentidoFade = sentido;
     _degrauFade = degrau;
     _intervaloFade = intervalo;
-
     processa();
 }
 
-bool Led::_processaFade()
-{
+bool Led::_processaFade(){
     bool retorno = false;
 
-    if (_fade)
-    {
+    if (_fade){
         unsigned long agoraMillis = millis();
 
-        if ((agoraMillis - _ultimoEventoFade) > _intervaloFade)
-        {
-            if (_sentidoFade)
-                incrementaNivel(_degrauFade);
-            else
-                decrementaNivel(_degrauFade);
-
-            retorno = true;            
-
+        if ((agoraMillis - _ultimoEventoFade) > _intervaloFade){
+            _sentidoFade ? incrementaNivel(_degrauFade) : decrementaNivel(_degrauFade);
             _ultimoEventoFade = agoraMillis;
+            retorno = true;            
         }
     }
-
     return retorno;
 }
 
-void Led::ativaTemporizador(unsigned long tempo)
-{
+void Led::ativaTemporizador(unsigned long tempo){
     _inicioTemporizador = millis();
     _temporizador = tempo;
     if (!aceso())
         acende();
 }
 
-bool Led::_processaTemporizador()
-{    
+bool Led::_processaTemporizador(){    
     bool retorno = false;
 
-    if (_temporizador > 0)
-    {
+    if (_temporizador > 0){
         unsigned long agoraMillis = millis();
 
-        if ((agoraMillis - _inicioTemporizador) > _temporizador)
-        {
+        if ((agoraMillis - _inicioTemporizador) > _temporizador){
             apaga();
             retorno = true;
         }
     }
-
     return retorno;
 }
 
-bool Led::processa()
-{
+bool Led::processa(){
     bool pf = _processaFade();
     bool pt = _processaTemporizador();
-
-    if (pf || pt)
-        return true;
-    else
-        return false;
+    return pf || pt ? true : false;
 }
 
-void Led::incrementaNivel(unsigned short int degrau)
-{
-    if (_nivel >= _nivelMax - degrau)
-    {
+void Led::incrementaNivel(unsigned short int degrau){
+    if (_nivel >= _nivelMax - degrau){
         _nivel = _nivelMax;
         _resetaFade();
     }
 
-    if (_nivel < _nivelMax)
-    {
+    if (_nivel < _nivelMax){
         if (!aceso())
             _nivel = _nivelMin;
         else
@@ -142,10 +117,8 @@ void Led::incrementaNivel(unsigned short int degrau)
     _escrevePorta(_nivel);
 }
 
-void Led::decrementaNivel(unsigned short int degrau)
-{
-    if (_nivel <= degrau)
-    {
+void Led::decrementaNivel(unsigned short int degrau){
+    if (_nivel <= degrau){
         _nivel = 0;
         _resetaFade();
     }
@@ -156,8 +129,7 @@ void Led::decrementaNivel(unsigned short int degrau)
     _escrevePorta(_nivel);
 }
 
-bool Led::aceso()
-{
+bool Led::aceso(){
     if (_tipo == RELE && _nivel == _nivelMax)
         return true;
 
@@ -167,23 +139,20 @@ bool Led::aceso()
     return false;
 }
 
-void Led::nivelMinimo()
-{
+void Led::nivelMinimo(){
     _nivel = _nivelMin;
     _escrevePorta(_nivel);
 }
 
 
-void Led::_escrevePorta(unsigned short int valor)
-{
+void Led::_escrevePorta(unsigned short int valor){
     if (_tipo == RELE)
         digitalWrite(_pino, valor);
     else if (_tipo == MOSFET)
         analogWrite(_pino, valor);
 }
 
-void Led::_resetaFade()
-{
+void Led::_resetaFade(){
     _fade = false;
     _sentidoFade = false;
     _degrauFade = 0;

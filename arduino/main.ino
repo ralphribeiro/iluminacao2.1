@@ -39,7 +39,6 @@ void setup()
 	iniciaIR();
 	iniciaBotao();
 	// iniciaSerial();
-	// Serial.begin(9600);
 }
 
 void loop()
@@ -69,13 +68,7 @@ void desliga()
 
 void gerenciaFonte()
 {
-	bool al = algumLedAceso();
-	// bool fl = fonteLigada();
-
-	if (al)
-		ligaFonte();
-	else
-		desligaFonte();
+  algumLedAceso() ? ligaFonte() : desligaFonte();			
 }
 
 bool algumLedAceso()
