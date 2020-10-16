@@ -181,6 +181,18 @@ void gerenciaSerial(){
 	}
 }
 
+void acendeTodos(){
+	ledFundos.acende();
+	ledCorredoFundos.acende();
+	ledCozinha.acende();
+	ledCortesia.acende();
+	ledSalaUm.acende();
+	ledSalaDois.acende();
+	ledSalaTres.acende();
+	ledSalaQuatro.acende();
+	ledBico.acende();
+}
+
 void gerenciaEventoIR(){
 	unsigned int comando = irComando();
 
@@ -243,6 +255,10 @@ void gerenciaEventoIR(){
 
 		case 17:
 			ledBico.ativaTemporizador(60000);
+			break;
+
+		case 18:
+			acendeTodos();
 			break;
 
 		default:

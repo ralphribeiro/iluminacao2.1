@@ -156,6 +156,10 @@ unsigned int irComando()
             retorno = 17;
             break;
 
+        case IrOk:
+            retorno = 18;
+            break;
+
         default:
             break;
         }
