@@ -33,27 +33,21 @@ Led ledSalaTres(pinMosfet3, MOSFET, nivelMin, nivelMax);
 Led ledSalaQuatro(pinMosfet4, MOSFET, nivelMin, nivelMax);
 Led ledBico(pinMosfet5, RELE, LOW, HIGH);
 
-void setup()
-{
+void setup(){
 	iniciaFonte();
 	iniciaIR();
 	iniciaBotao();
 	// iniciaSerial();
 }
 
-void loop()
-{
+void loop(){
 	gerenciaEventoIR();
-
 	gerenciaBotao();
-
-	// gerenciaSerial();
-
 	gerenciaLed();
+	// gerenciaSerial();
 }
 
-void desliga()
-{
+void desliga(){
 	ledFundos.apaga();
 	ledCorredoFundos.apaga();
 	ledCozinha.apaga();
@@ -66,13 +60,11 @@ void desliga()
 	gerenciaFonte();
 }
 
-void gerenciaFonte()
-{
+void gerenciaFonte(){
   algumLedAceso() ? ligaFonte() : desligaFonte();			
 }
 
-bool algumLedAceso()
-{
+bool algumLedAceso(){
 	if (ledFundos.aceso() ||
 		ledCorredoFundos.aceso() ||
 		ledCozinha.aceso() ||
@@ -81,29 +73,25 @@ bool algumLedAceso()
 		ledSalaDois.aceso() ||
 		ledSalaTres.aceso() ||
 		ledSalaQuatro.aceso() ||
-		ledBico.aceso())
-	{
+		ledBico.aceso()){
+
 		return true;
 	}
-
 	return false;
 }
 
-void manipulaNivelMin()
-{
-
+void manipulaNivelMin(){
 	if (ledSalaUm.obtemNivel() == nivelMin &&
 		ledSalaDois.obtemNivel() == nivelMin &&
 		ledSalaTres.obtemNivel() == nivelMin &&
-		ledSalaQuatro.obtemNivel() == nivelMin)
-	{
+		ledSalaQuatro.obtemNivel() == nivelMin){
+
 		ledSalaUm.apaga();
 		ledSalaDois.apaga();
 		ledSalaTres.apaga();
 		ledSalaQuatro.apaga();
 	}
-	else
-	{
+	else{
 		ledSalaUm.apaga();
 		ledSalaDois.apaga();
 		ledSalaTres.apaga();
@@ -116,41 +104,36 @@ void manipulaNivelMin()
 	}
 }
 
-void manipulaFade()
-{
+void manipulaFade(){
 	if (!ledSalaUm.fade() &&
 		!ledSalaDois.fade() &&
 		!ledSalaTres.fade() &&
-		!ledSalaQuatro.fade())
-		{
-			if (!ledSalaUm.aceso() &&
-				!ledSalaDois.aceso() &&
-				!ledSalaTres.aceso() &&
-				!ledSalaQuatro.aceso())
-			{
-				ledSalaUm.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-				ledSalaDois.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-				ledSalaTres.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-				ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
-			}
-			else
-			{
-				ledSalaUm.ativaFade(LOW, degrauFade, intervaloEventoFade);
-				ledSalaDois.ativaFade(LOW, degrauFade, intervaloEventoFade);
-				ledSalaTres.ativaFade(LOW, degrauFade, intervaloEventoFade);
-				ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
-			}
+		!ledSalaQuatro.fade()){
+
+		if (!ledSalaUm.aceso() &&
+			!ledSalaDois.aceso() &&
+			!ledSalaTres.aceso() &&
+			!ledSalaQuatro.aceso()){
+
+			ledSalaUm.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+			ledSalaDois.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+			ledSalaTres.ativaFade(HIGH, degrauFade, intervaloEventoFade);
+			ledSalaQuatro.ativaFade(HIGH, degrauFade, intervaloEventoFade);
 		}
+		else{
+			ledSalaUm.ativaFade(LOW, degrauFade, intervaloEventoFade);
+			ledSalaDois.ativaFade(LOW, degrauFade, intervaloEventoFade);
+			ledSalaTres.ativaFade(LOW, degrauFade, intervaloEventoFade);
+			ledSalaQuatro.ativaFade(LOW, degrauFade, intervaloEventoFade);
+		}
+	}
 }
 
-void gerenciaBotao()
-{
+void gerenciaBotao(){
 	unsigned short int retorno = processaBotao();
 
-	if (retorno > 0)
-	{
-		switch (retorno)
-		{
+	if (retorno > 0){
+		switch (retorno){
 		case 1:
 			ledCortesia.aceso() ? ledCortesia.apaga() : ledCortesia.acende();
 			break;
@@ -175,44 +158,34 @@ void gerenciaBotao()
 	}
 }
 
-void gerenciaLed()
-{
+void gerenciaLed(){
 	if (ledSalaUm.processa() ||
 		ledSalaDois.processa() ||
 		ledSalaTres.processa() ||
 		ledSalaQuatro.processa() ||
-		ledBico.processa())
-	{
+		ledBico.processa()){
+
 		gerenciaFonte();
 	}
 }
 
-void gerenciaSerial()
-{
+void gerenciaSerial(){
 	String msg = verificaMensagemSerial();
 
-	if (msg.compareTo("") > 0)
-	{
-		if (msg == "#LS")
-		{
-			if (!ledFundos.aceso())
-				ledFundos.acende();
-			else
-				ledFundos.apaga();
+	if (msg.compareTo("") > 0){
+		if (msg == "#LS"){
+			ledFundos.aceso() ? ledFundos.apaga() : ledFundos.acende();
 		}
 
 		gerenciaFonte();
 	}
 }
 
-void gerenciaEventoIR()
-{
+void gerenciaEventoIR(){
 	unsigned int comando = irComando();
 
-	if (comando > 0)
-	{
-		switch (comando)
-		{
+	if (comando > 0){
+		switch (comando){
 		case 1:
 			desliga();
 			break;
