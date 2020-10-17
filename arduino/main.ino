@@ -22,17 +22,12 @@ uint8_t nivelMax = 240;
 unsigned int intervaloEventoFade = 30;
 uint8_t degrauFade = 5;
 
-// Led ledFundos(pinRele1, RELE, HIGH, LOW);
-// Led ledCorredoFundos(pinRele2, RELE, HIGH, LOW);
-// Led ledCozinha(pinRele3, RELE, HIGH, LOW);
-// Led ledCortesia(pinRele4, RELE, HIGH, LOW);
-
 uint8_t ledFundos = 0;
 uint8_t ledCorredoFundos = 1;
 uint8_t ledCozinha = 2;
 uint8_t ledCortesia = 3;
 uint8_t ledBico = 4;
-
+uint8_t qtdLedsRele = 5;
 Led ledsRele[5] = {
 	Led(pinRele1, RELE, HIGH, LOW),
 	Led(pinRele2, RELE, HIGH, LOW),
@@ -45,7 +40,7 @@ uint8_t ledSalaUm = 0;
 uint8_t ledSalaDois = 1;
 uint8_t ledSalaTres = 2;
 uint8_t ledSalaQuatro = 3;
-
+uint8_t qtdLedsMosfet = 4;
 Led ledsMosfet[4] = {
 	Led(pinMosfet1, MOSFET, nivelMin, nivelMax),
 	Led(pinMosfet2, MOSFET, nivelMin, nivelMax),
@@ -68,15 +63,14 @@ void loop(){
 }
 
 void desliga(){
-	ledsRele[ledFundos].apaga();
-	ledsRele[ledCorredoFundos].apaga();
-	ledsRele[ledCozinha].apaga();
-	ledsRele[ledCortesia].apaga();
-	ledsRele[ledBico].apaga();
-	ledsMosfet[ledSalaUm].apaga();
-	ledsMosfet[ledSalaDois].apaga();
-	ledsMosfet[ledSalaTres].apaga();
-	ledsMosfet[ledSalaQuatro].apaga();
+	for (uint8_t i = 0; i < qtdLedsRele; i++){
+		ledsRele[i].apaga();
+	}
+
+	for (uint8_t i = 0; i < qtdLedsMosfet; i++){
+		ledsMosfet[i].apaga();
+	}
+
 	gerenciaFonte();
 }
 
@@ -85,20 +79,19 @@ void gerenciaFonte(){
 }
 
 bool algumLedAceso(){
-	if (ledsRele[ledFundos].aceso() ||
-		ledsRele[ledCorredoFundos].aceso() ||
-		ledsRele[ledCozinha].aceso() ||
-		ledsRele[ledCortesia].aceso() ||
-		ledsRele[ledBico].aceso() ||
-		ledsMosfet[ledSalaUm].aceso() ||
-		ledsMosfet[ledSalaDois].aceso() ||
-		ledsMosfet[ledSalaTres].aceso() ||
-		ledsMosfet[ledSalaQuatro].aceso()){
-
-		return true;
+	for (uint8_t i = 0; i < qtdLedsRele; i++){
+		if (ledsRele[i].aceso())
+			return true;
 	}
+	
+	for (uint8_t i = 0; i < qtdLedsMosfet; i++){
+		if (ledsMosfet[i].aceso())
+			return true;
+	}
+
 	return false;
 }
+
 
 void manipulaNivelMin(){
 	if (ledsMosfet[ledSalaUm].obtemNivel() == nivelMin &&
@@ -106,21 +99,14 @@ void manipulaNivelMin(){
 		ledsMosfet[ledSalaTres].obtemNivel() == nivelMin &&
 		ledsMosfet[ledSalaQuatro].obtemNivel() == nivelMin){
 
-		ledsMosfet[ledSalaUm].apaga();
-		ledsMosfet[ledSalaDois].apaga();
-		ledsMosfet[ledSalaTres].apaga();
-		ledsMosfet[ledSalaQuatro].apaga();
+		for (uint8_t i = 0; i < qtdLedsMosfet; i++){
+			ledsMosfet[i].apaga();
+		}
 	}
 	else{
-		ledsMosfet[ledSalaUm].apaga();
-		ledsMosfet[ledSalaDois].apaga();
-		ledsMosfet[ledSalaTres].apaga();
-		ledsMosfet[ledSalaQuatro].apaga();
-
-		ledsMosfet[ledSalaUm].nivelMinimo();
-		ledsMosfet[ledSalaDois].nivelMinimo();
-		ledsMosfet[ledSalaTres].nivelMinimo();
-		ledsMosfet[ledSalaQuatro].nivelMinimo();
+		for (uint8_t i = 0; i < qtdLedsMosfet; i++){
+			ledsMosfet[i].nivelMinimo();
+		}
 	}
 }
 
@@ -135,16 +121,15 @@ void manipulaFade(){
 			!ledsMosfet[ledSalaTres].aceso() &&
 			!ledsMosfet[ledSalaQuatro].aceso()){
 
-			ledsMosfet[ledSalaUm].ativaFade(HIGH, degrauFade, intervaloEventoFade);
-			ledsMosfet[ledSalaDois].ativaFade(HIGH, degrauFade, intervaloEventoFade);
-			ledsMosfet[ledSalaTres].ativaFade(HIGH, degrauFade, intervaloEventoFade);
-			ledsMosfet[ledSalaQuatro].ativaFade(HIGH, degrauFade, intervaloEventoFade);
+			for (uint8_t i = 0; i < qtdLedsMosfet; i++){
+				ledsMosfet[i].ativaFade(HIGH, degrauFade, intervaloEventoFade);
+			}
+			
 		}
 		else{
-			ledsMosfet[ledSalaUm].ativaFade(LOW, degrauFade, intervaloEventoFade);
-			ledsMosfet[ledSalaDois].ativaFade(LOW, degrauFade, intervaloEventoFade);
-			ledsMosfet[ledSalaTres].ativaFade(LOW, degrauFade, intervaloEventoFade);
-			ledsMosfet[ledSalaQuatro].ativaFade(LOW, degrauFade, intervaloEventoFade);
+			for (uint8_t i = 0; i < qtdLedsMosfet; i++){
+				ledsMosfet[i].ativaFade(LOW, degrauFade, intervaloEventoFade);
+			}
 		}
 	}
 }
@@ -202,15 +187,13 @@ void gerenciaSerial(){
 }
 
 void acendeTodos(){
-	ledsRele[ledFundos].acende();
-	ledsRele[ledCorredoFundos].acende();
-	ledsRele[ledCozinha].acende();
-	ledsRele[ledCortesia].acende();
-	ledsRele[ledBico].acende();
-	ledsMosfet[ledSalaUm].acende();
-	ledsMosfet[ledSalaDois].acende();
-	ledsMosfet[ledSalaTres].acende();
-	ledsMosfet[ledSalaQuatro].acende();
+	for (int i = 0; i < qtdLedsRele; i++){
+		ledsRele[i].acende();
+	}
+
+	for (int i = 0; i < qtdLedsMosfet; i++){
+		ledsMosfet[i].acende();
+	}	
 }
 
 void gerenciaEventoIR(){
