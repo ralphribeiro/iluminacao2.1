@@ -41,6 +41,10 @@ void Led::apaga(){
     _escrevePorta(_nivel);
 }
 
+void Led::manipula(){
+    aceso() ? apaga() : acende();
+}
+
 short int Led::obtemNivel(){
     return _nivel;
 }
