@@ -203,39 +203,48 @@ void gerenciaEventoIR(){
 			break;
 
 		case 2:
-			ledFundos.aceso() ? ledFundos.apaga() : ledFundos.acende();
+			ledFundos.manipula();
+			// ledFundos.aceso() ? ledFundos.apaga() : ledFundos.acende();
 			break;
 
 		case 3:
-			ledCorredoFundos.aceso() ? ledCorredoFundos.apaga() : ledCorredoFundos.acende();
+			ledCorredoFundos.manipula();
+			// ledCorredoFundos.aceso() ? ledCorredoFundos.apaga() : ledCorredoFundos.acende();
 			break;
 
 		case 4:
-			ledCozinha.aceso() ? ledCozinha.apaga() : ledCozinha.acende();
+			ledCozinha.manipula();
+			// ledCozinha.aceso() ? ledCozinha.apaga() : ledCozinha.acende();
 			break;
 
 		case 5:
-			ledSalaUm.aceso() ? ledSalaUm.apaga() : ledSalaUm.acende();
+			ledSalaUm.manipula();
+			// ledSalaUm.aceso() ? ledSalaUm.apaga() : ledSalaUm.acende();
 			break;
 
 		case 6:
-			ledSalaDois.aceso() ? ledSalaDois.apaga() : ledSalaDois.acende();
+			ledSalaDois.manipula();
+			// ledSalaDois.aceso() ? ledSalaDois.apaga() : ledSalaDois.acende();
 			break;
 
 		case 7:
-			ledSalaTres.aceso() ? ledSalaTres.apaga() : ledSalaTres.acende();
+			ledSalaTres.manipula();
+			// ledSalaTres.aceso() ? ledSalaTres.apaga() : ledSalaTres.acende();
 			break;
 
 		case 8:
-			ledSalaQuatro.aceso() ? ledSalaQuatro.apaga() : ledSalaQuatro.acende();
+			ledSalaQuatro.manipula();
+			// ledSalaQuatro.aceso() ? ledSalaQuatro.apaga() : ledSalaQuatro.acende();
 			break;
 
 		case 9:
-			ledBico.aceso() ? ledBico.apaga() : ledBico.acende();
+			ledBico.manipula();
+			// ledBico.aceso() ? ledBico.apaga() : ledBico.acende();
 			break;
 
 		case 10:
-			ledCortesia.aceso() ? ledCortesia.apaga() : ledCortesia.acende();
+			ledCortesia.manipula();
+			// ledCortesia.aceso() ? ledCortesia.apaga() : ledCortesia.acende();
 			break;
 
 		case 11:
