@@ -52,7 +52,7 @@
 unsigned long ultimaLeitura = 0;
 unsigned long leituraDelay = 100;
 
-extern unsigned short int pinIR;
+extern uint8_t pinIR;
 
 IRrecv irrecv(pinIR);
 decode_results resultados;

@@ -1,26 +1,26 @@
 #include <Led.h>
 
-unsigned short int pinBotao1 = 12;
-unsigned short int pinPSON = 13;
-unsigned short int pinIR = 4;
-unsigned short int pinRele1 = A0;
-unsigned short int pinRele2 = A1;
-unsigned short int pinRele3 = A2;
-unsigned short int pinRele4 = A3;
-unsigned short int pinRele5 = 3;
-unsigned short int pinMosfet1 = 10;
-unsigned short int pinMosfet2 = 9;
-unsigned short int pinMosfet3 = 6;
-unsigned short int pinMosfet4 = 5;
+uint8_t pinBotao1 = 12;
+uint8_t pinPSON = 13;
+uint8_t pinIR = 4;
+uint8_t pinRele1 = A0;
+uint8_t pinRele2 = A1;
+uint8_t pinRele3 = A2;
+uint8_t pinRele4 = A3;
+uint8_t pinRele5 = 3;
+uint8_t pinMosfet1 = 10;
+uint8_t pinMosfet2 = 9;
+uint8_t pinMosfet3 = 6;
+uint8_t pinMosfet4 = 5;
 
-unsigned short int RELE = 0;
-unsigned short int MOSFET = 1;
+uint8_t RELE = 0;
+uint8_t MOSFET = 1;
 
-unsigned short int nivelMin = 10;
-unsigned short int nivelMax = 240;
+uint8_t nivelMin = 10;
+uint8_t nivelMax = 240;
 
 unsigned int intervaloEventoFade = 30;
-unsigned short int degrauFade = 5;
+uint8_t degrauFade = 5;
 
 // Led ledFundos(pinRele1, RELE, HIGH, LOW);
 // Led ledCorredoFundos(pinRele2, RELE, HIGH, LOW);
@@ -150,7 +150,7 @@ void manipulaFade(){
 }
 
 void gerenciaBotao(){
-	unsigned short int retorno = processaBotao();
+	uint8_t retorno = processaBotao();
 
 	if (retorno > 0){
 		switch (retorno){

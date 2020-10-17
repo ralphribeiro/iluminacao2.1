@@ -1,4 +1,4 @@
-extern unsigned short int pinBotao1;
+extern uint8_t pinBotao1;
 
 #define UMTOQUE 1
 #define DOISTOQUES 2

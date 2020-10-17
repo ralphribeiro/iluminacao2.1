@@ -1,6 +1,6 @@
 unsigned short int PSONState = HIGH;
 
-extern unsigned short int pinPSON;
+extern uint8_t pinPSON;
 
 void iniciaFonte()
 {
