@@ -18,14 +18,12 @@ bool flag1, flag2;
 long double tempoPressionado, tempoSoltura;
 
 
-void iniciaBotao()
-{
+void iniciaBotao(){
 	pinMode(pinBotao1, INPUT_PULLUP);
 }
 
-unsigned short int processaBotao()
-{
-	unsigned short int retorno = 0;
+uint8_t processaBotao(){
+	uint8_t retorno = 0;
 
 	int valorLido = digitalRead(pinBotao1);
 
@@ -35,8 +33,7 @@ unsigned short int processaBotao()
 		estadoBotao = valorLido != estadoBotao ? valorLido : estadoBotao;
 
 	//pressionado
-	if (estadoBotao == 0 && flag2 == 0)
-	{
+	if (estadoBotao == 0 && flag2 == 0){
 		tempoPressionado = millis();
 		flag1 = 0;
 		flag2 = 1;
@@ -44,8 +41,7 @@ unsigned short int processaBotao()
 	}
 
 	//solto
-	if (estadoBotao == 1 && flag1 == 0)
-	{
+	if (estadoBotao == 1 && flag1 == 0){
 		tempoSoltura = millis();
 		flag1 = 1;
 		flag2 = 0;
@@ -53,8 +49,7 @@ unsigned short int processaBotao()
 		tempoDelta = tempoSoltura - tempoPressionado;
 	}
 
-	if ((millis() - tempoPressionado) > tempoEsperaEvento && estadoBotao == 1)
-	{
+	if ((millis() - tempoPressionado) > tempoEsperaEvento && estadoBotao == 1){
 		if (contadorToque == 1)
 			retorno = tempoDelta >= tempoEsperaEvento ? BOTAOPRESO : UMTOQUE;
 		else if (contadorToque == 2)
