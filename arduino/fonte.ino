@@ -1,4 +1,4 @@
-unsigned short int PSONState = HIGH;
+bool PSONState = HIGH;
 
 extern uint8_t pinPSON;
 
