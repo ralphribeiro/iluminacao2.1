@@ -57,12 +57,15 @@ extern uint8_t pinIR;
 IRrecv irrecv(pinIR);
 decode_results resultados;
 
-long lerIR(){
+long lerIR()
+{
     long valor = 0;
     unsigned long agora = millis();
 
-    if ((agora - ultimaLeitura) > leituraDelay){
-        if (irrecv.decode(&resultados)){
+    if ((agora - ultimaLeitura) > leituraDelay)
+    {
+        if (irrecv.decode(&resultados))
+        {
             valor = resultados.decode_type == NEC ? resultados.value : valor;
             irrecv.resume(); // Recebe o próximo valor
         }
@@ -71,11 +74,13 @@ long lerIR(){
     return valor;
 }
 
-void iniciaIR(){
+void iniciaIR()
+{
     irrecv.enableIRIn();
 }
 
-unsigned int irComando(){
+unsigned int irComando()
+{
     unsigned int retorno = 0;
     long botao = lerIR();
 

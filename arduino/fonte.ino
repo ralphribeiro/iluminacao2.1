@@ -2,12 +2,14 @@ bool PSONState = HIGH;
 
 extern uint8_t pinPSON;
 
-void iniciaFonte(){
+void iniciaFonte()
+{
     PSONState = LOW;
     desligaFonte();
 }
 
-void ligaFonte(){
+void ligaFonte()
+{
     if (PSONState == LOW)
         return;
 
@@ -15,7 +17,8 @@ void ligaFonte(){
     digitalWrite(pinPSON, PSONState);
 }
 
-void desligaFonte(){
+void desligaFonte()
+{
     if (PSONState == HIGH)
         return;
 
@@ -23,6 +26,7 @@ void desligaFonte(){
     digitalWrite(pinPSON, PSONState);
 }
 
-bool fonteLigada(){
+bool fonteLigada()
+{
     return PSONState == LOW ? true : false;
 }
