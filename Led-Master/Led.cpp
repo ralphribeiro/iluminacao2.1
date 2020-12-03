@@ -11,8 +11,8 @@
 
 Led::Led(unsigned short int pino,
          unsigned short int tipo,
-         unsigned short int nivelMin,
-         unsigned short int nivelMax){
+         unsigned int nivelMin,
+         unsigned int nivelMax){
     pinMode(pino, OUTPUT);
     _pino = pino;
     _tipo = tipo;
@@ -45,7 +45,7 @@ void Led::manipula(){
     aceso() ? apaga() : acende();
 }
 
-short int Led::obtemNivel(){
+unsigned int Led::obtemNivel(){
     return _nivel;
 }
 
@@ -149,7 +149,7 @@ void Led::nivelMinimo(){
 }
 
 
-void Led::_escrevePorta(unsigned short int valor){
+void Led::_escrevePorta(unsigned int valor){
     if (_tipo == RELE)
         digitalWrite(_pino, valor);
     else if (_tipo == MOSFET)
