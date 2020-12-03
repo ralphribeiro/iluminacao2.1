@@ -34,8 +34,8 @@ private:
     short int _nivel;
     unsigned short int _pino;
     unsigned short int _tipo;
-    unsigned short int _nivelMin;
-    unsigned short int _nivelMax;
+    unsigned int _nivelMin;
+    unsigned int _nivelMax;
     unsigned short int _degrauFade;
     unsigned int _intervaloFade;
     
