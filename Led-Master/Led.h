@@ -14,7 +14,7 @@ public:
     bool fade();
     bool processa();
 
-    short int obtemNivel();
+    unsigned int obtemNivel();
     
     void acende();
     void apaga();
@@ -25,7 +25,7 @@ public:
     void manipula();
     void nivelMinimo();
     
-    Led(unsigned short int pino, unsigned short int tipo, unsigned short int nivelMin, unsigned short int nivelMax);
+    Led(unsigned short int pino, unsigned short int tipo, unsigned int nivelMin, unsigned int nivelMax);
 
 private:
     bool _fade;
@@ -46,7 +46,7 @@ private:
     bool _processaFade();
     bool _processaTemporizador();
     
-    void _escrevePorta(unsigned short int valor);    
+    void _escrevePorta(unsigned int valor);    
     void _resetaFade();
 };
 
