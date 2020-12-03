@@ -31,7 +31,7 @@ private:
     bool _fade;
     bool _sentidoFade;
     
-    short int _nivel;
+    unsigned int _nivel;
     unsigned short int _pino;
     unsigned short int _tipo;
     unsigned int _nivelMin;
