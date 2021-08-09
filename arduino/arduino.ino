@@ -16,7 +16,7 @@ uint8_t pinMosfet4 = 5;
 uint8_t RELE = 0;
 uint8_t MOSFET = 1;
 
-uint8_t nivelMin = 10;
+uint8_t nivelMin = 20;
 uint8_t nivelMax = 240;
 
 unsigned int intervaloEventoFade = 30;
@@ -33,7 +33,7 @@ Led ledsRele[5] = {
     Led(pinRele3, RELE, HIGH, LOW),
     Led(pinRele4, RELE, HIGH, LOW),
     Led(pinRele5, RELE, LOW, HIGH)};
-uint8_t qtdLedsRele = sizeof(ledsRele);
+uint8_t qtdLedsRele = 5;
 
 uint8_t ledSalaUm = 0;
 uint8_t ledSalaDois = 1;
@@ -45,7 +45,7 @@ Led ledsMosfet[4] = {
     Led(pinMosfet3, MOSFET, nivelMin, nivelMax),
     Led(pinMosfet4, MOSFET, nivelMin, nivelMax),
 };
-uint8_t qtdLedsMosfet = sizeof(ledsMosfet);
+uint8_t qtdLedsMosfet = 4;
 
 void setup(){
     iniciaFonte();
