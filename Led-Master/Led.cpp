@@ -123,14 +123,14 @@ void Led::incrementaNivel(unsigned short int degrau){
 
 void Led::decrementaNivel(unsigned short int degrau){
     if (_nivel <= degrau){
-        _nivel = 0;
-        _resetaFade();
+        apaga();
     }
 
-    if (_nivel > degrau)
+    if (_nivel > degrau){
         _nivel -= degrau;
+        _escrevePorta(_nivel);
+    }
 
-    _escrevePorta(_nivel);
 }
 
 bool Led::aceso(){

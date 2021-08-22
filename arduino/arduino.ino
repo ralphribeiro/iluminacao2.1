@@ -16,7 +16,7 @@ uint8_t pinMosfet4 = 5;
 uint8_t RELE = 0;
 uint8_t MOSFET = 1;
 
-uint8_t nivelMin = 20;
+uint8_t nivelMin = 5;
 uint8_t nivelMax = 240;
 
 unsigned int intervaloEventoFade = 30;
@@ -245,6 +245,14 @@ void gerenciaEventoIR(){
 
         case 12:
             manipulaNivelMin();
+            break;
+
+        case 14:
+            ledsMosfet[ledSalaTres].incrementaNivel(degrauFade);
+            break;
+
+        case 15:
+            ledsMosfet[ledSalaTres].decrementaNivel(degrauFade);
             break;
 
         case 16:
