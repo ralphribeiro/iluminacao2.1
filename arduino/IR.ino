@@ -100,6 +100,7 @@ unsigned int irComando()
             retorno = 3;
             break;
 
+        case IrTv:
         case Ir3:
             retorno = 4;
             break;
