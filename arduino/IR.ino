@@ -49,6 +49,20 @@
 #define IrAmarelo 0x20DFC639
 #define IrAzul 0x20DF8679
 
+#define AlexaCozinha 0xFFC03F
+#define AlexaSofa 0xFF20DF
+#define AlexaPorta 0xFFA05F
+#define AlexaDispensa 0xFF40BF
+#define AlexaFundos 0xFF807F
+#define AlexaPortaEntrada 0xFF00FF
+#define AlexaGaragem 0xFF906F
+#define AlexaSalaQuatro 0xFFE01F
+#define AlexaSalaTres 0xFF609F
+#define AlexaAcendeTudo 0xFFB04F
+#define AlexaApagaTudo 0xFF50AF
+#define AlexaModoNoturno 0xFFB847
+#define AlexaLampiao 0xFFC23D
+
 unsigned long ultimaLeitura = 0;
 unsigned long leituraDelay = 100;
 
@@ -88,51 +102,63 @@ unsigned int irComando()
     {
         switch (botao)
         {
+        case AlexaApagaTudo:
         case IrPower:
             retorno = 1;
             break;
 
+        case AlexaFundos:
         case Ir1:
             retorno = 2;
             break;
 
+        case AlexaDispensa:
         case Ir2:
             retorno = 3;
             break;
 
+        case AlexaCozinha:
         case IrTv:
         case Ir3:
             retorno = 4;
             break;
 
+        case AlexaSofa:
         case Ir4:
             retorno = 5;
             break;
 
+        case AlexaPorta:
         case Ir5:
             retorno = 6;
             break;
 
+        case AlexaSalaTres:
         case Ir6:
             retorno = 7;
             break;
 
+        case AlexaSalaQuatro:
         case Ir7:
             retorno = 8;
             break;
 
+        case AlexaGaragem:
         case Ir9:
             retorno = 9;
             break;
 
+        case AlexaPortaEntrada:
         case Ir0:
             retorno = 10;
             break;
 
+        case AlexaLampiao:
         case IrAzul:
             retorno = 11;
             break;
 
+        case AlexaModoNoturno:
         case IrAmarelo:
             retorno = 12;
             break;
@@ -157,6 +183,7 @@ unsigned int irComando()
             retorno = 17;
             break;
 
+        case AlexaAcendeTudo:
         case IrOk:
             retorno = 18;
             break;
