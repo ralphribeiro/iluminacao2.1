@@ -145,11 +145,12 @@ void gerenciaBotao(){
             break;
 
         case 3:
-            ledsRele[ledBico].ativaTemporizador(120000);
+            ledsRele[ledFundos].manipula();
             break;
 
         case 5:
-            manipulaNivelMin();
+            ledsRele[ledCozinha].manipula();
+            ledsRele[ledCorredoFundos].manipula();
             break;
 
         default:

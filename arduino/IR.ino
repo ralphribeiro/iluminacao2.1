@@ -75,7 +75,7 @@ long lerIR()
 {
     long valor = 0;
     unsigned long agora = millis();
-
+ 
     if ((agora - ultimaLeitura) > leituraDelay)
     {
         if (irrecv.decode(&resultados))
